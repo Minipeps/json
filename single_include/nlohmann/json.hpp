@@ -21112,8 +21112,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     written using `at()`. It also demonstrates the different exceptions that
     can be thrown.,at__object_t_key_type}
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     reference at(const KeyT& key)
     {
         // at only works for objects
@@ -21161,8 +21161,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     `at()`. It also demonstrates the different exceptions that can be thrown.,
     at__object_t_key_type_const}
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     const_reference at(const KeyT& key) const
     {
         // at only works for objects
@@ -21306,8 +21306,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template KeyT added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     reference operator[](KeyT&& key)
     {
         // implicitly convert null value to an empty object
@@ -21359,8 +21359,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template KeyT added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     const_reference operator[](KeyT&& key) const
     {
         // operator[] only works for objects
@@ -21427,9 +21427,9 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     @since version 1.0.0, KeyType template added in 3.10.0
     */
     // using std::is_convertible in a std::enable_if will fail when using explicit conversions
-    template < class KeyType, class ValueType, typename detail::enable_if_t <
+    template < class KeyType, class ValueType, typename std::enable_if<
                    detail::is_getable<basic_json_t, ValueType>::value
-                   && !std::is_same<value_t, ValueType>::value&& detail::is_usable_as_key_type<basic_json_t, KeyType>::value > ... >
+                   && !std::is_same<value_t, ValueType>::value&& detail::is_usable_as_key_type<basic_json_t, KeyType>::value, int >::type = 0 >
     typename std::decay<ValueType>::type value(const KeyType& key, ValueType&& default_value) const
     {
         // at only works for objects
@@ -21452,8 +21452,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     @brief overload for a default value of type const char*
     @copydoc basic_json::value(const typename object_t::key_type&, const ValueType&) const
     */
-    template < class KeyType, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyType>::value > ... >
+    template < class KeyType, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyType>::value, int >::type = 0 >
     string_t value(const KeyType& key, const char* default_value) const
     {
         return value(key, string_t(default_value));
@@ -21882,8 +21882,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value, int >::type = 0 >
     size_type erase(const KeyT& key)
     {
         // this erase only works for objects

@@ -3584,8 +3584,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     written using `at()`. It also demonstrates the different exceptions that
     can be thrown.,at__object_t_key_type}
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     reference at(const KeyT& key)
     {
         // at only works for objects
@@ -3633,8 +3633,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     `at()`. It also demonstrates the different exceptions that can be thrown.,
     at__object_t_key_type_const}
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     const_reference at(const KeyT& key) const
     {
         // at only works for objects
@@ -3778,8 +3778,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template KeyT added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     reference operator[](KeyT&& key)
     {
         // implicitly convert null value to an empty object
@@ -3831,8 +3831,8 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template KeyT added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value > ... >
+    template < class KeyT, typename std::enable_if <
+                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value&& !std::is_same<typename std::decay<KeyT>::type, json_pointer>::value, int >::type = 0 >
     const_reference operator[](KeyT&& key) const
     {
         // operator[] only works for objects
@@ -4354,8 +4354,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0; template added in version 3.10.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value > ... >
+    template<class KeyT, typename std::enable_if<detail::is_usable_as_key_type<basic_json_t, KeyT>::value, int>::type = 0>
     size_type erase(const KeyT& key)
     {
         // this erase only works for objects
@@ -4450,8 +4449,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value > ... >
+    template<class KeyT, typename std::enable_if<detail::is_usable_as_key_type<basic_json_t, KeyT>::value, int>::type = 0>
     iterator find(const KeyT& key)
     {
         auto result = end();
@@ -4468,8 +4466,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     @brief find an element in a JSON object
     @copydoc find(const KeyT&)
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value > ... >
+    template<class KeyT, typename std::enable_if<detail::is_usable_as_key_type<basic_json_t, KeyT>::value, int>::type = 0>
     const_iterator find(const KeyT& key) const
     {
         auto result = cend();
@@ -4503,8 +4500,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
     @since version 1.0.0
     */
-    template < class KeyT, typename detail::enable_if_t <
-                   detail::is_usable_as_key_type<basic_json_t, KeyT>::value > ... >
+    template<class KeyT, typename std::enable_if<detail::is_usable_as_key_type<basic_json_t, KeyT>::value, int>::type = 0>
     size_type count(const KeyT& key) const
     {
         // return 0 for all nonobject types
